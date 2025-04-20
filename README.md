@@ -14,6 +14,7 @@ This web app collects color perception data from colorblind users and uses machi
 ### 1. Clone the repo
 
 git clone https://github.com/Rinkureddy224/colorblind-image-corrector.git
+
 cd colorblind-image-corrector
 
 ### 2. Install Dependencies
@@ -29,6 +30,7 @@ python train_model.py
 ### 4. Run the App
 
 python app.py
+
 This will be available in your browser at http://127.0.0.1:5000/ 
 
 🧾 Dependencies
@@ -45,6 +47,7 @@ This will be available in your browser at http://127.0.0.1:5000/
 • joblib
 
 👋 Author
+
 Your Shiva Shankar Reddy
 
 Mini Project — [Mlrit]
