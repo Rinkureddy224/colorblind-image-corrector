@@ -14,7 +14,7 @@ This web app collects color perception data from colorblind users and uses machi
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/colorblind-image-corrector.git
+git clone https://github.com/Rinkureddy224/colorblind-image-corrector.git
 cd colorblind-image-corrector
 
 ### 2. Create Virtual Environment (Optional but Recommended)
