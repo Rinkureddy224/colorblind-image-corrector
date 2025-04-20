@@ -148,9 +148,17 @@ def apply_color_transformation():
 
     return jsonify({
         "success": True,
-        "transformed_image_url": f"/uploads/transformed_image.png"
-    })
+        "transformed_image_url": f"/transformed_images/transformed_image.png"
 
+    })
+# Serve The transformed image to upload page
+@app.route('/transformed_images/<filename>')
+def serve_transformed_image(filename):
+    file_path = os.path.join(TRANSFORMED_FOLDER, filename)
+    if os.path.exists(file_path):
+        return send_file(file_path)
+    else:
+        return "File not found", 404
 
     
 
