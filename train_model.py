@@ -26,5 +26,6 @@ accuracy = model.score(X_test, y_test)
 print(f"✅ Model trained with accuracy: {accuracy:.2f}")
 
 # 6. Save the model
+os.makedirs("model", exist_ok=True)
 joblib.dump(model, 'model/colorblind_model.pkl')
 print("✅ Model saved as model/colorblind_model.pkl")
