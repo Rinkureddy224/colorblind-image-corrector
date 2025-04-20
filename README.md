@@ -33,14 +33,22 @@ This will be available in your browser at http://127.0.0.1:5000/
 
 🧾 Dependencies
 • Flask
+
 • Pillow
+
 • Scikit-learn
+
 • Pandas
+
 • NumPy
+
 • joblib
 
 👋 Author
 Your Shiva Shankar Reddy
+
 Mini Project — [Mlrit]
+
 free to use, modify, and build on.
+
 Contributions & forks welcome 🙌
