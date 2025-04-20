@@ -23,6 +23,7 @@ pip install -r requirements.txt
 ### 3. Generate Dataset & Train Model
 
 python generate_dataset.py
+
 python train_model.py
 
 ### 4. Run the App
