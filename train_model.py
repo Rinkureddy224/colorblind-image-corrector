@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 import joblib
+import os
 
 # 1. Load the dataset
 df = pd.read_csv("data/colorblind_dataset.csv")
