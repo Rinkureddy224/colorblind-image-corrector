@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image - Colorblind Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <center><header>
+        <h1>Upload Your Image for Color Transformation</h1>
+    </header></center>
+
+    <!-- Image Upload Section -->
+    <section id="image-upload-container">
+        <div class="upload-section">
+            <input type="file" id="imageInput" accept="image/*">
+            <button id="uploadButton">Upload Image</button>
+        </div>
+        
+
+        <!-- Uploaded Image Display Section -->
+        <div id="image-display" style="display: flex; gap: 40px; justify-content: center; align-items: flex-start; margin-top: 30px;">
+            <div>
+                <h3>Original Image</h3>
+                <img id="uploadedImage" src="" style="max-width: 400px; border: 2px solid #ccc;">
+            </div>
+            <div id="transformed-wrapper" style="display: none;">
+                <h3>Transformed Image</h3>
+                <img id="transformedImage" src="" style="max-width: 400px; border: 2px solid #4CAF50;">
+            </div>
+        </div>
+        
+
+        <!-- Color Transformation Button -->
+        <button id="transformButton" style="display: none;">Transform Colors</button>
+    </section>
+
+    <!-- Results Section -->
+    <section id="result-container" style="display: none;">
+        <h2>Transformed Image:</h2>
+        <img id="transformedImage" src="" alt="Transformed Image">
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve survey responses from localStorage
+            const storedChoices = localStorage.getItem("userChoices");
+            let userChoices = [];
+        
+            if (storedChoices) {
+                try {
+                    userChoices = JSON.parse(storedChoices);
+                    console.log("Survey responses loaded from localStorage:", userChoices);
+                } catch (e) {
+                    console.error("Failed to parse userChoices from localStorage:", e);
+                }
+            } else {
+                console.warn("No userChoices found in localStorage.");
+            }
+        
+            document.getElementById("uploadButton").addEventListener("click", function () {
+                const imageInput = document.getElementById("imageInput");
+                const file = imageInput.files[0];
+        
+                if (!file) {
+                    alert("Please select an image to upload.");
+                    return;
+                }
+        
+                const formData = new FormData();
+                formData.append("image", file);
+        
+                fetch("/upload-image", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Image uploaded:", data.image_path);
+        
+                        const imageUrl = data.image_path;  // Use the full path provided by Flask
+                        document.getElementById("uploadedImage").src = imageUrl;
+                        document.getElementById("transformButton").style.display = "inline-block";
+        
+                        // Store the uploaded image URL for later
+                        document.getElementById("transformButton").setAttribute("data-image-path", imageUrl);
+                    } else {
+                        console.log("Error uploading image:", data.message);
+                        alert("Something went wrong while uploading the image. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error during upload:", error);
+                    alert("Something went wrong while uploading the image.");
+                });
+            });
+        
+            // Handle "Transform Colors" button
+            document.getElementById("transformButton").addEventListener("click", function () {
+                const imagePath = this.getAttribute("data-image-path");
+        
+                fetch("/apply-color-transformation", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        image_path: imagePath,
+                        survey_responses: userChoices
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById("transformedImage").src = data.transformed_image_url;
+                        document.getElementById("transformed-wrapper").style.display = "block";
+
+                    } else {
+                        alert("Something went wrong with the color transformation.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred while applying the color transformation.");
+                });
+            });
+        });
+        </script>
+        
+</body>
+</html>

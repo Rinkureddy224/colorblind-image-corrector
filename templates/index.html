@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Perception Survey</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="survey-container">
+        <!-- Survey heading -->
+        <h1 class="survey-heading">Colorblind Color Test Survey</h1>
+        
+        <!-- Survey Question and Answer Section -->
+        <div id="survey-container">
+            <!-- Displayed question content -->
+        </div>
+    </div>
+
+    <div id="survey-container">
+        <!-- Question Area -->
+        <div class="survey-question">
+            <div id="question-number">Question 1</div>
+            <div class="color-box-container"></div>
+        </div>
+
+        <!-- Color Choices for the Question -->
+        <div class="options-container"></div>
+
+        <!-- Display User Choices -->
+        <div class="user-choices">
+            <h3>Your Choices:</h3>
+            <ul id="choices-list"></ul>
+        </div>
+
+        <!-- Next and Continue Button -->
+        <button class="option-button" id="next-button">Next</button>
+        <button id="continue-button" class="btn-continue" style="display: none;">Continue</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
